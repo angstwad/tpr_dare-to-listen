@@ -1,0 +1,12 @@
+
+.idea/
+.DS_Store
+client/bower_components/
+client/js/config.js
+dev-config.json
+prod-config.json
+/server/dev-config.json
+/server/prod-config.json
+/client/js/dev-config.js
+/client/js/prod-config.js
+*.pyc

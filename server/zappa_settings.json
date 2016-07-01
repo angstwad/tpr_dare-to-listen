@@ -1,0 +1,44 @@
+{
+  "dev": {
+    "aws_region": "us-east-1",
+    "memory_size": 256,
+    "remote_env_bucket": "dtl-config-dev",
+    "remote_env_file": "dev-config.json",
+    "project_name": "DareToListen",
+    "s3_bucket": "dtl-dev-lambda",
+    "parameter_depth": 3,
+    "app_function": "app.app",
+    "integration_response_codes": [200, 301, 404, 500, 401, 409, 201, 400],
+    "events": [
+      {
+        "function": "tasks.send_contacts",
+        "expression": "cron(0/5 * * * ? *)"
+      },
+      {
+        "function": "tasks.send_report",
+        "expression": "cron(0/5 * * * ? *)"
+      }
+    ]
+  },
+  "prod": {
+    "aws_region": "us-east-1",
+    "memory_size": 256,
+    "remote_env_bucket": "dtl-config-prod",
+    "remote_env_file": "prod-config.json",
+    "project_name": "DareToListen",
+    "s3_bucket": "dtl-prod-lambda",
+    "parameter_depth": 3,
+    "app_function": "app.app",
+    "integration_response_codes": [200, 301, 404, 500, 401, 409, 201, 400],
+    "events": [
+      {
+        "function": "tasks.send_contacts",
+        "expression": "cron(0 11 * * ? *)"
+      },
+      {
+        "function": "tasks.send_report",
+        "expression": "cron(0 11 * 1 ? *)"
+      }
+    ]
+  }
+}
