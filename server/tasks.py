@@ -84,11 +84,15 @@ def get_report(db):
     output = io.BytesIO()
     output.name = 'report.csv'
     writer = csv.writer(output)
-    keys = ['created', 'name', 'email', 'method', 'public', 'dare']
+    keys = ['created', 'name', 'email', 'method', 'public', 'optIn', 'dare']
     writer.writerow(keys)
 
     for doc in cursor:
-        writer.writerow([doc[key] for key in keys])
+        items = map(
+            lambda x: x.encode('utf-8') if isinstance(x, basestring) else x,
+            (doc.get(key) for key in keys)
+        )
+        writer.writerow(items)
 
     output.seek(0)
     return output
