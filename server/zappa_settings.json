@@ -9,14 +9,15 @@
     "parameter_depth": 3,
     "app_function": "app.app",
     "integration_response_codes": [200, 301, 404, 500, 401, 409, 201, 400],
+    "keep_warm": false,
     "events": [
       {
         "function": "tasks.send_contacts",
-        "expression": "cron(0/5 * * * ? *)"
+        "expression": "rate(1 day)"
       },
       {
         "function": "tasks.send_report",
-        "expression": "cron(0/5 * * * ? *)"
+        "expression": "rate(1 day)"
       }
     ]
   },
@@ -32,12 +33,12 @@
     "integration_response_codes": [200, 301, 404, 500, 401, 409, 201, 400],
     "events": [
       {
-        "function": "tasks.send_contacts",
-        "expression": "cron(0 11 * * ? *)"
+        "function": "tasks.send_report",
+        "expression": "cron(0 11 * ? 1 *)"
       },
       {
-        "function": "tasks.send_report",
-        "expression": "cron(0 11 * 1 ? *)"
+        "function": "tasks.send_contacts",
+        "expression": "cron(0 11 * * ? *)"
       }
     ]
   }
