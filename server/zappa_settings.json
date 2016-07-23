@@ -12,11 +12,11 @@
     "keep_warm": false,
     "events": [
       {
-        "function": "tasks.send_contacts",
-        "expression": "rate(1 day)"
+        "function": "tasks.send_report",
+        "expression": "cron(0/5 * ? * * *)"
       },
       {
-        "function": "tasks.send_report",
+        "function": "tasks.send_contacts",
         "expression": "rate(1 day)"
       }
     ]
@@ -34,7 +34,7 @@
     "events": [
       {
         "function": "tasks.send_report",
-        "expression": "cron(0 11 * ? 1 *)"
+        "expression": "cron(0 11 ? * 1 *)"
       },
       {
         "function": "tasks.send_contacts",
