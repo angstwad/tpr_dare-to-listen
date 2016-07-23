@@ -43,11 +43,39 @@ def send_contacts():
     print resp
 
 
-def send_report():
-    db = get_db()
+def get_social_counts_text(db):
+    cursor = db.dares.aggregate([
+        {
+            '$match': {}
+        },
+        {
+            '$group': {
+                '_id': '$method',
+                'count': {
+                    '$sum': 1
+                }
+            }
+        }
+    ])
+    text = "The total count of dares by platform are as follows:\n"
+    for doc in cursor:
+        _id = doc['_id']
+        method = _id.title() if _id != 'tpr' else 'TPR'
+        text += "%s: %s\n" % (method, doc['count'])
+    return text
+
+
+def get_counts_text(db):
+    distinct = len(db.dares.distinct('email'))
+    total = db.dares.count()
+    return """\
+Total dares: {total}
+Distinct email addresses: {distinct}
+""".format(total=total, distinct=distinct)
+
+
+def get_report(db):
     seven_days = datetime.now(tzutc()) - timedelta(days=7)
-    api_key = os.environ['MAILGUN_KEY']
-    mailto = os.environ['MAILTO_REPORT']
 
     cursor = db.dares.find({'created': {'$gt': seven_days}})
     if not cursor.count():
@@ -63,15 +91,42 @@ def send_report():
         writer.writerow([doc[key] for key in keys])
 
     output.seek(0)
+    return output
+
+
+def send_report():
+    db = get_db()
+    api_key = os.environ['MAILGUN_KEY']
+    mailto = os.environ['MAILTO_REPORT']
+
+    social_counts = get_social_counts_text(db)
+    total_counts = get_counts_text(db)
+
+    body = """\
+Hello,
+
+This is the weekly rollup report.
+
+{social_counts}
+
+{total_counts}
+
+Please find the attached weekly dares report as a CSV (Excel) file.
+
+Sincerely,
+An Anonymous Lambda Function running in the Amazon Cloud
+""".format(social_counts=social_counts, total_counts=total_counts)
+
+    report_fobj = get_report(db)
 
     data = {
-        'from': 'noreply@daretolisten.org',
+        'from': 'idaretolisten.org <noreply@daretolisten.org>',
         'to': mailto,
         'subject': 'Dare to Listen Contact Form Messages',
-        'text': 'Attached is the weekly dare report as a CSV (Excel) file.'
+        'text': body,
     }
 
     resp = requests.post(
-        URL, auth=('api', api_key), files=[('attachment', output)], data=data
+        URL, auth=('api', api_key), files=[('attachment', report_fobj)], data=data
     )
     print resp
