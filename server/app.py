@@ -43,6 +43,7 @@ class DareResource(Resource):
         parser.add_argument('dare', choices=choices.VALID_DARES, required=True)
         parser.add_argument('method', default='tpr')
         parser.add_argument('public')
+        parser.add_argument('optIn', required=True)
         return parser.parse_args()
 
     def post(self):
@@ -52,6 +53,8 @@ class DareResource(Resource):
             args.public = False
         else:
             args.public = boolify(args.get('public'))
+
+        args.optIn = boolify(args.get('optIn'))
 
         args.created = datetime.now(tz=tzutc())
 

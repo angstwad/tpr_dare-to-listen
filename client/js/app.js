@@ -122,7 +122,10 @@
         'dtlConfig',
         function ($http, $scope, $window, $rootScope, ezfb, SweetAlert, dtlConfig) {
             var self = this;
-            this.data = {public: true};
+            this.data = {
+                public: true,
+                optIn: true
+            };
             this.dares = [
                 'question more and preach less',
                 'risk understanding your beliefs',
