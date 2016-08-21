@@ -22,27 +22,6 @@ $(function() {
     });
 });
 
-//// Owl carousel
-//$('.owl-carousel').owlCarousel({
-//    loop:true,
-//    margin:10,
-//    nav:false,
-//    autoplay:true,
-//    autoplayTimeout:3000,
-//    autoplayHoverPause:true,
-//    responsive:{
-//        0:{
-//            items:1
-//        },
-//        600:{
-//            items:3
-//        },
-//        1000:{
-//            items:5
-//        }
-//    }
-//})
-
 // hide #back-top first
 $("#back-top").hide();
 
@@ -66,4 +45,9 @@ $('#back-top a').on("click", function(){
 // Closes the Responsive Menu on Menu Item Click
 $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
+});
+
+
+$(document).ready(function() {
+    $('.carousel').carousel({interval: 3000});
 });
