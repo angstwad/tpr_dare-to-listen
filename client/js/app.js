@@ -99,16 +99,14 @@
             var self = this;
             this.dares = [];
 
-            function getDares() {
+            (function() {
                 var url = dtlConfig.apiBackend + '/dares';
                 $http.get(url).then(
                     function (response) {
                         self.dares = response.data.dares || [];
                     }
                 )
-            }
-
-            getDares();
+            })();
         }
     ]);
 
@@ -126,6 +124,7 @@
                 public: true,
                 optIn: true
             };
+            this.showDare = true;
             this.dares = [
                 'question more and preach less',
                 'risk understanding your beliefs',
@@ -164,6 +163,10 @@
                     return;
                 }
                 switch (action) {
+                    case "TPR":
+                        this.data.method = 'tpr';
+                        doTpr(angular.copy(this.data));
+                        break;
                     case "Twitter":
                         this.data.method = 'twitter';
                         doTweet(angular.copy(this.data));
@@ -171,10 +174,6 @@
                     case "Facebook":
                         this.data.method = 'facebook';
                         doFacebook(angular.copy(this.data));
-                        break;
-                    case "TPR":
-                        this.data.method = 'tpr';
-                        sendUserData(angular.copy(this.data));
                         break;
                 }
             };
@@ -193,23 +192,32 @@
                 });
             };
 
-            function sendUserData(data) {
+            function sendUserData(data, type) {
                 console.log("Sending user data to backend.");
                 var url = dtlConfig.apiBackend + '/dare';
                 $http.post(url, data).then(
                     function (response) {
-                        angular.element('#DareModal').modal('hide');
-                        SweetAlert.swal("Awesome!", "Thanks for taking the dare!", "success");
                         $rootScope.$broadcast('updateCounter', true);
-                        $scope.dareForm.$setValidity();
-                        $scope.dareForm.$setPristine();
-                        $scope.dareForm.$setUntouched();
                     },
                     function (response) {
-                        SweetAlert.swal("Oops!", "Something went wrong sending your dare to TPR.  Please try again.", "error");
+                        console.log('Error sending data to backend.');
+                        if (type === 'tpr') {
+                            SweetAlert.swal(
+                                "Oops!",
+                                "Something went wrong sending your dare to TPR.  Please try again.",
+                                "error"
+                            );
+                            self.showDare = true;
+                        }
                     }
                 );
 
+            }
+
+            function doTpr(data) {
+                console.log('Doing TPR dare.');
+                sendUserData(data, 'tpr');
+                self.showDare = false;
             }
 
             function makeTwitterUrl() {
@@ -224,6 +232,7 @@
             }
 
             function doTweet(data) {
+                console.log('Doing a Tweet.');
                 var windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes',
                     width = 550,
                     height = 420,
@@ -244,6 +253,7 @@
             }
 
             function doFacebook(data) {
+                console.log('Doing Facebook share.');
                 ezfb.ui({
                     method: 'share',
                     href: 'http://idaretolisten.org',

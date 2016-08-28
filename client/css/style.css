@@ -39,7 +39,7 @@ Import Google Fonts
 
 body {
     margin: 0px;
-    font-family: "Open Sans", Sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 h1,
@@ -50,7 +50,7 @@ h5,
 h6 {
     font-weight: 300;
     letter-spacing: 0.4px;
-    font-family: "Open Sans", Sans-serif;
+    font-family: "Open Sans", sans-serif;
     color: #232323;
 }
 
@@ -765,19 +765,16 @@ footer p a span {
     margin: 0 0 30px 0;
 }
 
-.btn-facebook {
+.btn-xl.btn-facebook {
     background-color: #3b5998;
     color: #fff;
+    border-color: #fff;
 }
 
-.btn-twitter {
+.btn-xl.btn-twitter {
     background-color: #00aced;
     color: #fff;
-}
-
-.btn-tpr {
-    background-color: #64156e;
-    color: #fff;
+    border-color: #fff;
 }
 
 .btn-facebook:hover, .btn-twitter:hover, .btn-tpr:hover {

@@ -341,85 +341,111 @@
 </footer>
 
 <!-- Modal for portfolio item 1 -->
-<div class="modal fade" id="DareModal" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1"
-     ng-controller="dareFormCtrl as ctrl">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="Modal-label-1">Take the Dare to Listen</h4>
-            </div>
-            <div class="modal-body">
-                <form name="dareForm" class="form">
-                    <div class="form-group">
-                        <label for="dareName">Name *</label>
-                        <input type="text" class="form-control" id="dareName" name="name" placeholder="Name"
-                               ng-model="ctrl.data.name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="dareEmail">Email Address *</label>
-                        <input type="email" class="form-control" id="dareEmail" name="email" placeholder="Email"
-                               ng-model="ctrl.data.email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="dareChoice">I Dare To... *</label>
-                        <select class="form-control" id="dareChoice" name="choice" ng-model="ctrl.data.dare"
-                                ng-options="item as item for item in ctrl.dares" required>
-                        </select>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" class="checkbox" id="darePublic" name="public"
-                                   ng-model="ctrl.data.public" ng-true-value="true" ng-false-value="false"> Share My
-                            Dare
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" class="checkbox" id="dareOptIn" name="optIn"
-                                   ng-model="ctrl.data.optIn" ng-true-value="true" ng-false-value="false"> Opt-In to Emails from TPR
-                        </label>
-                    </div>
-                </form>
-                <div class="share-buttons">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="messages-box">
-                                <div class="text-info" ng-hide="ctrl.allReqTouched() && dareForm.$invalid">
-                                    <strong>* All fields required.</strong>
+<div class="modal-container">
+    <div class="modal fade" id="DareModal" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1"
+         ng-controller="dareFormCtrl as ctrl">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="Modal-label-1">Take the Dare to Listen</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="dareForm" class="form" ng-show="ctrl.showDare">
+                        <div class="form-group">
+                            <label for="dareName">Name *</label>
+                            <input type="text" class="form-control" id="dareName" name="name" placeholder="Name"
+                                   ng-model="ctrl.data.name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dareEmail">Email Address *</label>
+                            <input type="email" class="form-control" id="dareEmail" name="email" placeholder="Email"
+                                   ng-model="ctrl.data.email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dareChoice">I Dare To... *</label>
+                            <select class="form-control" id="dareChoice" name="choice" ng-model="ctrl.data.dare"
+                                    ng-options="item as item for item in ctrl.dares" required>
+                            </select>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="checkbox" id="darePublic" name="public"
+                                       ng-model="ctrl.data.public" ng-true-value="true" ng-false-value="false"> Share My
+                                Dare
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="checkbox" id="dareOptIn" name="optIn"
+                                       ng-model="ctrl.data.optIn" ng-true-value="true" ng-false-value="false"> Opt-In to Emails from TPR
+                            </label>
+                        </div>
+                    </form>
+                    <div class="share-buttons">
+                        <div class="row">
+                            <div class="take-dare" ng-show="ctrl.showDare">
+                                <div class="col-sm-12">
+                                    <div class="messages-box">
+                                        <div class="text-info" ng-hide="ctrl.allReqTouched() && dareForm.$invalid">
+                                            <strong>* All fields required.</strong>
+                                        </div>
+                                        <div class="text-danger" ng-if="ctrl.allReqTouched() && dareForm.$invalid">
+                                            <strong>* All fields must be complete and valid before you may submit your dare.</strong>
+                                        </div>
+                                        <p>
+                                            It's your choice: share your dare with TPR, or if you're feeling wild, share with your friends on Twitter or Facebook. You may take the dare to all the platforms as many times as you like, but your email will only be counted once.
+                                        </p>
+                                        <div class="collapse well" id="whyTakeTheDare">
+                                            <div>
+                                                <p>
+                                                    <strong>Why Take the Dare?</strong>
+                                                </p>
+                                                <p>
+                                                    By taking the dare, you will add your name to the growing list of visionary individuals who have chosen to make a real difference, and also ensure that that you’ll be kept apprised of the activities we have in store for all those who dare to listen.
+                                                </p>
+                                                <p>
+                                                    If you will commit to this effort by giving us your name and email address, we will commit to helping you engage with the rest of the dare to listen community. We will use your information only for this purpose, unless you request more communication from us.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="text-danger" ng-if="ctrl.allReqTouched() && dareForm.$invalid">
-                                    <strong>* All fields must be complete and valid before you may submit your
-                                        dare.</strong>
+                                <div class="col-md-12 text-center">
+                                    <button class="btn btn-xl btn-tpr" type="button"
+                                            ng-click="ctrl.takeDare('TPR', ctrl.data)">
+                                        <i class="fa fa-check"></i> Take the Dare
+                                    </button>
                                 </div>
-                                <p>It's your choice: share your dare with TPR, or if you're feeling wild, share with
-                                    your friends on Twitter or Facebook. You may take the dare to all the platforms as
-                                    many times as you like, but your email will only be counted once.</p>
                             </div>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <button class="btn btn-sm btn-tpr" type="button" ng-click="ctrl.takeDare('TPR', ctrl.data)">
-                                <i class="fa fa-microphone"></i> Dare TPR
-                            </button>
-                        </div>
-                        <div class="col-sm-4 text-center">
-                            <button class="btn btn-sm btn-twitter" type="button"
-                                    ng-click="ctrl.takeDare('Twitter', ctrl.data)">
-                                <i class="fa fa-twitter"></i> Dare Twitter
-                            </button>
-                        </div>
-                        <div class="col-sm-4 text-center">
-                            <button class="btn btn-sm btn-facebook" type="button"
-                                    ng-click="ctrl.takeDare('Facebook', ctrl.data)">
-                                <i class="fa fa-facebook-official"></i> Dare Facebook
-                            </button>
+                            <div class="share-dare" ng-hide="ctrl.showDare">
+                                <div class="col-md-12">
+                                    <h3 class="text-center">Thanks for taking the dare!</h3>
+                                    <p class="text-center">
+                                        Please consider sharing your dare with social media to engage your family, friends, and acquaintances in the challenge to Dare To Listen.
+                                    </p>
+                                </div>
+                                <div class="col-sm-12 text-center">
+                                    <button class="btn btn-xl btn-twitter" type="button"
+                                            ng-click="ctrl.takeDare('Twitter', ctrl.data)">
+                                        <i class="fa fa-twitter"></i> Share with Twitter
+                                    </button>
+                                </div>
+                                <div class="col-sm-12 text-center">
+                                    <button class="btn btn-xl btn-facebook" type="button"
+                                            ng-click="ctrl.takeDare('Facebook', ctrl.data)">
+                                        <i class="fa fa-facebook-official"></i> Share with Facebook
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-default why-btn pull-left" href="#whyTakeTheDare" data-toggle="collapse" data-target="#whyTakeTheDare" aria-expanded="false" aria-controls="whyTakeTheDare" ng-if="ctrl.showDare">Why Take the Dare?</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
