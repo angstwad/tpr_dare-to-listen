@@ -204,7 +204,8 @@ section {
 --------------------*/
 
 header {
-    background-image: url('../images/dtl/dtl_photo1.jpg');
+    background-image: none;
+    background-color: #000;
     background-repeat: none;
     background-attachment: scroll;
     background-position: center center;

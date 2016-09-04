@@ -7,6 +7,27 @@
         })
     });
 
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    app.directive('randomBackgroundImage', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element) {
+                var images = [
+                    "url(../images/header/darian.jpg)",
+                    "url(../images/header/glen.jpg)",
+                    "url(../images/header/kim.jpg)",
+                    "url(../images/header/pena.jpg)"
+                ];
+                element.css("background-image", images[getRandomInt(0, 4)]);
+            }
+        }
+    });
+
     app.controller('counterCtrl', [
         '$http',
         '$scope',
@@ -99,7 +120,7 @@
             var self = this;
             this.dares = [];
 
-            (function() {
+            (function () {
                 var url = dtlConfig.apiBackend + '/dares';
                 $http.get(url).then(
                     function (response) {
