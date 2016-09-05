@@ -225,7 +225,7 @@ header .intro-text {
 @media (min-width: 768px) {
     header .intro-text {
         padding-top: 160px;
-        padding-bottom: 200px;
+        padding-bottom: 125px;
     }
 }
 
@@ -913,7 +913,7 @@ and (max-width: 480px) {
 }
 
 /*--------------------
-Social Sprites
+DTL Custom
 --------------------*/
 
 .fa.social {
@@ -1073,3 +1073,23 @@ section#social div.dare em {
     font-weight: lighter;
 }
 
+div.events a.btn.btn-lg {
+    margin-bottom: 25px;
+}
+
+@media (max-width: 400px) {
+    div.events a.btn.btn-lg {
+        width: 100%;
+        white-space: normal;
+    }
+
+    header .intro-text {
+        max-width: 50%;
+        padding-bottom: 0;
+    }
+
+    div.dare-button a.btn.btn-xl {
+        white-space: normal;
+        width: 100%;
+    }
+}
