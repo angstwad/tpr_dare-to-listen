@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-import os
 import csv
+import io
+import os
 from datetime import datetime, timedelta
 
-import io
 import requests
 from dateutil.tz import tzutc
 
-from app import get_db
-
+from db import get_db
 
 URL = 'https://api.mailgun.net/v3/idaretolisten.org/messages'
 
@@ -126,7 +125,7 @@ An Anonymous Lambda Function running in the Amazon Cloud
     data = {
         'from': 'idaretolisten.org <noreply@daretolisten.org>',
         'to': mailto,
-        'subject': 'Dare to Listen Contact Form Messages',
+        'subject': 'Dare to Listen Weekly Rollup',
         'text': body,
     }
 
