@@ -44,7 +44,7 @@
                         self.count = response.data.count;
                     },
                     function (response) {
-                        console.log('There was a problem getting dare count.')
+                        console.log('There was a problem getting dare count.');
                     }
                 )
             }

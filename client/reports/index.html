@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com//ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/report.js"></script>
+</head>
+<body ng-app="dtlReports">
+
+<div class="container" ng-controller="reportsCtrl as ctrl">
+    <div style="margin-top: 25px;"></div>
+    <div class="alert alert-info" ng-hide="ctrl.fatalError"><strong>Note:</strong> The report will be emailed to you immedately after it is requested.</div>
+    <div class="alert alert-success" role="alert" ng-show="ctrl.requested && !ctrl.error"><strong>Success!</strong> Your report has been successfully requested.</div>
+    <div class="alert alert-danger" role="alert" ng-show="ctrl.requested && ctrl.error"><strong>Error!</strong> There was a problem requesting your report.</div>
+    <div class="alert alert-danger" role="alert" ng-show="ctrl.fatalError"><strong>Error!</strong> There is a problem with reporting at this time.  Please try again later.</div>
+    <form>
+        <fieldset ng-disabled="ctrl.fatalError">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Email" ng-model="ctrl.formData.email">
+            </div>
+            <div class="form-group">
+                <label for="reportType">Report Type</label>
+                <select class="form-control" id="reportType" ng-model="ctrl.formData.report"
+                        ng-options="key as val for (key, val) in ctrl.reports"> </select>
+            </div>
+            <button type="button" class="btn btn-lg btn-primary" ng-click="ctrl.request_report()">Get Report</button>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
